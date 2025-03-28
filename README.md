@@ -36,13 +36,13 @@ There are two ways to host SearXNG. The first one doesn't require any prior know
 > ```
 
 ### Method 1: With Caddy included (recommended for beginners)
-6. Run SearXNG in the background: `docker compose up -d`
+4. Run SearXNG in the background: `docker compose up -d`
 
 ### Method 2: Bring your own reverse proxy (experienced users)
-6. Remove the caddy related parts in `docker-compose.yaml` such as the caddy service and its volumes.
-7. Point your reverse proxy to the port set for the `searxng` service in `docker-compose.yml` (8080 by default).
-8. Generate and configure the required TLS certificates with the reverse proxy of your choice.
-9. Run SearXNG in the background: `docker compose up -d`
+4. Remove the caddy related parts in `docker-compose.yaml` such as the caddy service and its volumes.
+5. Point your reverse proxy to the port set for the `searxng` service in `docker-compose.yml` (8080 by default).
+6. Generate and configure the required TLS certificates with the reverse proxy of your choice.
+7. Run SearXNG in the background: `docker compose up -d`
 
 > [!NOTE]
 > By default `searxng` listens only on the local machine. if you want to operate in `host` network wide you can change `127.0.0.1:8080` to `0.0.0.0:8080`) directly inside `docker-compose.yaml`.
