@@ -1,6 +1,6 @@
 # searxng-docker
 
-Create a new SearXNG instance in five minutes using Docker
+Create a new SearXNG instance in five minutes using Docker. This has been tweaked for use in local Lan settings for Code. 
 
 ## What is included?
 
@@ -20,10 +20,8 @@ There are two ways to host SearXNG. The first one doesn't require any prior know
   git clone https://github.com/searxng/searxng-docker.git
   cd searxng-docker
   ```
-3. Edit the [.env](https://github.com/searxng/searxng-docker/blob/master/.env) file to set the hostname and an email
-4. Generate the secret key `sed -i "s|ultrasecretkey|$(openssl rand -hex 32)|g" searxng/settings.yml`  
+3. Generate the secret key `sed -i "s|ultrasecretkey|$(openssl rand -hex 32)|g" searxng/settings.yml`  
    On a Mac: `sed -i '' "s|ultrasecretkey|$(openssl rand -hex 32)|g" searxng/settings.yml`
-5. Edit [searxng/settings.yml](https://github.com/searxng/searxng-docker/blob/master/searxng/settings.yml) according to your needs
 
 > [!NOTE]
 > On the first run, you must remove `cap_drop: - ALL` from the `docker-compose.yaml` file for the `searxng` service to successfully create `/etc/searxng/uwsgi.ini`. This is necessary because the `cap_drop: - ALL` directive removes all capabilities, including those required for the creation of the `uwsgi.ini` file. After the first run, you should re-add `cap_drop: - ALL` to the `docker-compose.yaml` file for security reasons.
@@ -47,7 +45,7 @@ There are two ways to host SearXNG. The first one doesn't require any prior know
 9. Run SearXNG in the background: `docker compose up -d`
 
 > [!NOTE]
-> You can change the port `searxng` listens on inside the docker container (e.g. if you want to operate in `host` network mode) with the `BIND_ADDRESS` environment variable (defaults to `0.0.0.0:8080`). The environment variable can be set directly inside `docker-compose.yaml`.
+> By default `searxng` listens only on the local machine. if you want to operate in `host` network wide you can change `127.0.0.1:8080` to `0.0.0.0:8080`) directly inside `docker-compose.yaml`.
 
 ## Troubleshooting - How to access the logs
 
