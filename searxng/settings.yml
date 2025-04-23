@@ -3,24 +3,55 @@ use_default_settings: true
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
   secret_key: "ultrasecretkey"  # change this!
-  limiter: false  # can be disabled for a private instance
-  image_proxy: true
+  limiter: true  # Valid: helps prevent bot-like request patterns
+  public_instance: true  # Valid: enables throttling features
+  image_proxy: true  # Valid: proxies images to avoid leaking user data
+outgoing:
+  useragent_suffix: ""  # Valid: don't reveal SearxNG in user agent
+  request_timeout: 10.0  # Valid: set timeout for requests
+  max_redirects: 10  # Valid: maximum redirects to follow
+  pool_connections: 100  # Valid: connections to keep in pool
+  pool_maxsize: 20  # Valid: maximum connections in a pool
+  retries: 3  # Valid: number of retries for failed requests
+  enable_http2: true  # Valid: enables HTTP/2 support
+  default_http_headers:  # Valid: sets default HTTP headers
+    Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
+    Accept-Language: 'en-US,en;q=0.5'
+    Accept-Encoding: 'gzip, deflate, br'
+    Connection: 'keep-alive'
+    Upgrade-Insecure-Requests: '1'
+  proxies:  # Valid: configures proxy servers
+    http:
+      - http://proxy1:8080/
+      - http://proxy2:8080/
+    https:
+      - http://proxy1:8080/
+      - http://proxy2:8080/
 search:
-  max_page: 1
-  safe_search: 0
-  suspended_times:
-    SearxEngineAccessDenied: 86400
-    SearxEngineCaptcha: 86400
-    SearxEngineTooManyRequests: 3600
-    cf_SearxEngineCaptcha: 1296000
-    cf_SearxEngineAccessDenied: 86400
-    recaptcha_SearxEngineCaptcha: 604800
-  language:
+  max_page: 1  # Valid: limits result pages
+  safe_search: 0  # Valid: disables safe search
+  suspended_times:  # Valid: configures suspension times
+    SearxEngineAccessDenied: 172800
+    SearxEngineCaptcha: 345600
+    SearxEngineTooManyRequests: 86400
+    cf_SearxEngineCaptcha: 2592000
+    cf_SearxEngineAccessDenied: 172800
+    recaptcha_SearxEngineCaptcha: 1209600
+  language:  # Valid: sets search language
     - en-US
-  formats:
+  formats:  # Valid: sets output formats
     - html
     - json
 ui:
-  static_use_hash: true
+  static_use_hash: true  # Valid: enables static file hashing
 redis:
-  url: redis://redis:6379/0
+  url: redis://redis:6379/0  # Valid: sets Redis connection URL
+
+# Setting engine-specific options to reduce captchas
+engines:
+  - name: google
+    headers:
+      Accept-Language: "en-US,en;q=0.9"
+  - name: bing
+    headers:
+      Accept-Language: "en-US,en;q=0.9"

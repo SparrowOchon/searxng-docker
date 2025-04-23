@@ -69,7 +69,23 @@ services:
       options:
         max-size: "1m"
         max-file: "1"
-
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/healthz"]
+      interval: 1m30s
+      timeout: 10s
+      start_period: 2m
+      retries: 3
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
 networks:
   searxng:
 
