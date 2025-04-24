@@ -28,7 +28,7 @@ outgoing:
       - http://proxy1:8080/
       - http://proxy2:8080/
 search:
-  max_page: 1  # Valid: limits result pages
+  max_page: 10  # Valid: limits result pages
   safe_search: 0  # Valid: disables safe search
   suspended_times:  # Valid: configures suspension times
     SearxEngineAccessDenied: 172800

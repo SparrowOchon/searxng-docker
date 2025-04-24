@@ -1,6 +1,21 @@
-# This configuration file updates the default configuration file
-# See https://github.com/searxng/searxng/blob/master/searx/limiter.toml
+[real_ip]
+# Trust one proxy hop for X-Forwarded-For
+x_for       = 1
+# Compare full IPv4/IPv6 addresses
+ipv4_prefix = 32
+ipv6_prefix = 48
 
 [botdetection.ip_limit]
-# activate link_token method in the ip_limit method
-link_token = true
+# Monitor link-local/private networks too
+filter_link_local = true
+# Activate the "link_token" method so clients without a valid token
+# get restricted to the lower suspicious thresholds
+link_token        = true
+
+[botdetection.ip_lists]
+# No IP is explicitly blocked at this stage
+block_ip          = []
+# No IP is exempted—every IP is subject to rate limits
+pass_ip           = []
+# Disable the built-in SearXNG org passlist (not needed here)
+pass_searxng_org  = false
