@@ -9,7 +9,7 @@ services:
         aliases:
           - "searxng-nginx"
     ports:
-          - "8080:8080"
+          - "8082:8080"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
