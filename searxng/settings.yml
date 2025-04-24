@@ -4,7 +4,7 @@ server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
   secret_key: "ultrasecretkey"  # change this!
   limiter: false  # This setting is genuinely garbage, it flags on normal use. Implementing on Nginx
-  public_instance: true  # Valid: enables throttling features
+  public_instance: false  # Valid: enables throttling features
   image_proxy: true  # Valid: proxies images to avoid leaking user data
 outgoing:
   useragent_suffix: ""  # Valid: don't reveal SearxNG in user agent
@@ -40,6 +40,7 @@ search:
   language:  # Valid: sets search language
     - en-US
   formats:  # Valid: sets output formats
+    - html
     - json
 ui:
   static_use_hash: true  # Valid: enables static file hashing
