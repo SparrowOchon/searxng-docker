@@ -9,13 +9,13 @@ services:
         aliases:
           - "searxng-nginx"
     ports:
-          - "8082:8080"
+          - "0.0.0.0:8082:8082"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/ssl:/etc/nginx/ssl:ro
     depends_on:
       - searxng
-    command: sh -c "mkdir -p /etc/nginx/ssl && if [ ! -f /etc/nginx/ssl/cert.pem ]; then openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/key.pem -out /etc/nginx/ssl/cert.pem -subj '/CN=localhost/O=SearXNG Self Signed/C=US'; fi && nginx -g 'daemon off;'"
+    command: nginx -g 'daemon off;'
     cap_drop:
       - ALL
     cap_add:
