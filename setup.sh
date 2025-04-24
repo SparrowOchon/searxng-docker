@@ -9,3 +9,4 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 # Set appropriate permissions
 chmod 600 nginx/ssl/key.pem
 chmod 644 nginx/ssl/cert.pem
+sed -i "s|ultrasecretkey|$(openssl rand -hex 32)|g" searxng/settings.yml
