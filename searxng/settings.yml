@@ -40,7 +40,6 @@ search:
   language:  # Valid: sets search language
     - en-US
   formats:  # Valid: sets output formats
-    - html
     - json
 ui:
   static_use_hash: true  # Valid: enables static file hashing
