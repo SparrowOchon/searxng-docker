@@ -3,7 +3,7 @@ use_default_settings: true
 server:
   # base_url is defined in the SEARXNG_BASE_URL environment variable, see .env and docker-compose.yml
   secret_key: "ultrasecretkey"  # change this!
-  limiter: true  # Valid: helps prevent bot-like request patterns
+  limiter: false  # This setting is genuinely garbage, it flags on normal use. Implementing on Nginx
   public_instance: true  # Valid: enables throttling features
   image_proxy: true  # Valid: proxies images to avoid leaking user data
 outgoing:
