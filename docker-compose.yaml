@@ -66,8 +66,8 @@ services:
       - REDIS_URL=redis://searxng-redis:6379/0  # Added Redis connection
     depends_on:
       - redis
-    cap_drop:
-      - ALL
+ #   cap_drop:
+ #     - ALL
     cap_add:
       - CHOWN
       - SETGID
