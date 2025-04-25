@@ -44,8 +44,6 @@ search:
     - json
 ui:
   static_use_hash: true  # Valid: enables static file hashing
-redis:
-  url: redis://redis:6379/0  # Valid: sets Redis connection URL
 
 # Setting engine-specific options to reduce captchas
 engines:
