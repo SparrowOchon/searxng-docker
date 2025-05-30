@@ -6,7 +6,7 @@ Create a new SearXNG instance in five minutes using Docker. This was specificall
 
 | Name | Description | Docker image | Dockerfile |
 | -- | -- | -- | -- |
-| [Nginx](https://nginx.org/en/) | Reverse proxy (optimized for speed) | [docker.io/library/caddy:2-alpine](https://hub.docker.com/_/caddy)           | [Dockerfile](https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl) |
+| [Nginx](https://nginx.org/en/) | Reverse proxy (optimized for speed) | [docker.io/library/nginx:alpine](https://hub.docker.com/_/caddy)           | [Dockerfile](https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl) |
 | [SearXNG](https://github.com/searxng/searxng) | SearXNG by itself                                              | [docker.io/searxng/searxng:latest](https://hub.docker.com/r/searxng/searxng) | [Dockerfile](https://github.com/searxng/searxng/blob/master/Dockerfile)               |
 
 ## How to use it
