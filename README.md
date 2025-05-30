@@ -1,17 +1,16 @@
 # searxng-docker
 
-Create a new SearXNG instance in five minutes using Docker. This has been tweaked for use in local Lan settings for Code. 
+Create a new SearXNG instance in five minutes using Docker. This was specifically modified to be optimized for lan use and speed with JSON support natively out of the box enabled.
 
 ## What is included?
 
 | Name | Description | Docker image | Dockerfile |
 | -- | -- | -- | -- |
-| [Caddy](https://github.com/caddyserver/caddy) | Reverse proxy (create a LetsEncrypt certificate automatically) | [docker.io/library/caddy:2-alpine](https://hub.docker.com/_/caddy)           | [Dockerfile](https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl) |
+| [Nginx](https://nginx.org/en/) | Reverse proxy (optimized for speed) | [docker.io/library/caddy:2-alpine](https://hub.docker.com/_/caddy)           | [Dockerfile](https://github.com/caddyserver/caddy-docker/blob/master/Dockerfile.tmpl) |
 | [SearXNG](https://github.com/searxng/searxng) | SearXNG by itself                                              | [docker.io/searxng/searxng:latest](https://hub.docker.com/r/searxng/searxng) | [Dockerfile](https://github.com/searxng/searxng/blob/master/Dockerfile)               |
-| [Valkey](https://github.com/valkey-io/valkey) | In-memory database                                             | [docker.io/valkey/valkey:8-alpine](https://hub.docker.com/r/valkey/valkey)        | [Dockerfile](https://github.com/valkey-io/valkey-container/blob/mainline/Dockerfile.template)             |
 
 ## How to use it
-There are two ways to host SearXNG. The first one doesn't require any prior knowledge about self-hosting and thus is recommended for beginners. It includes caddy as a reverse proxy and automatically deals with the TLS certificates for you. The second one is recommended for more advanced users that already have their own reverse proxy (e.g. Nginx, HAProxy, ...) and probably some other services running on their machine. The first few steps are the same for both installation methods however.
+There are two ways to host SearXNG. The first one doesn't require any prior knowledge about self-hosting and thus is recommended for beginners. It includes Nginx as a reverse proxy and automatically deals with the local tls certificates for you.
 
 1. [Install docker](https://docs.docker.com/install/)
 2. Get searxng-docker
@@ -20,11 +19,7 @@ There are two ways to host SearXNG. The first one doesn't require any prior know
   git clone https://github.com/searxng/searxng-docker.git
   cd searxng-docker
   ```
-3. Generate the secret key `sed -i "s|ultrasecretkey|$(openssl rand -hex 32)|g" searxng/settings.yml`  
-   On a Mac: `sed -i '' "s|ultrasecretkey|$(openssl rand -hex 32)|g" searxng/settings.yml`
-
-> [!NOTE]
-> On the first run, you must remove `cap_drop: - ALL` from the `docker-compose.yaml` file for the `searxng` service to successfully create `/etc/searxng/uwsgi.ini`. This is necessary because the `cap_drop: - ALL` directive removes all capabilities, including those required for the creation of the `uwsgi.ini` file. After the first run, you should re-add `cap_drop: - ALL` to the `docker-compose.yaml` file for security reasons.
+3. Run the setup script `./setup.sh` at the root of this Repo
 
 > [!NOTE]
 > Windows users can use the following powershell script to generate the secret key:
@@ -35,17 +30,9 @@ There are two ways to host SearXNG. The first one doesn't require any prior know
 > (Get-Content searxng/settings.yml) -replace 'ultrasecretkey', $secretKey | Set-Content searxng/settings.yml
 > ```
 
-### Method 1: With Caddy included (recommended for beginners)
+### Method 1: With Nginx included
 4. Run SearXNG in the background: `docker compose up -d`
 
-### Method 2: Bring your own reverse proxy (experienced users)
-4. Remove the caddy related parts in `docker-compose.yaml` such as the caddy service and its volumes.
-5. Point your reverse proxy to the port set for the `searxng` service in `docker-compose.yml` (8080 by default).
-6. Generate and configure the required TLS certificates with the reverse proxy of your choice.
-7. Run SearXNG in the background: `docker compose up -d`
-
-> [!NOTE]
-> By default `searxng` listens only on the local machine. if you want to operate in `host` network wide you can change `127.0.0.1:8080` to `0.0.0.0:8080`) directly inside `docker-compose.yaml`.
 
 ## Troubleshooting - How to access the logs
 
