@@ -20,6 +20,12 @@ services:
       options:
         max-size: "1m"
         max-file: "1"
+    labels:
+    - homepage.description=SearXNG
+    - homepage.group=Self-Hosted
+    - homepage.href=http://192.168.1.11:8082/
+    - homepage.icon=searxng.png
+    - homepage.name=SearXNG
   searxng:
     container_name: searxng
     image: docker.io/searxng/searxng:latest
